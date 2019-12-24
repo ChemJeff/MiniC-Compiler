@@ -1,0 +1,19 @@
+#!/bin/bash
+
+BIN_DIR=${0%/*}
+EEYORE=${BIN_DIR}/MiniC2Eeyore
+TIGGER=${BIN_DIR}/Eeyore2Tigger
+RISCV32=${BIN_DIR}/Tigger2RISCV32
+
+if [ $# -eq 0 ]; then
+    ${EEYORE} 2>/dev/null | ${TIGGER} 2>/dev/null | ${RISCV32} 2>/dev/null
+elif [ $# -eq 1 ]; then
+    ${EEYORE} <$1 2>/dev/null | ${TIGGER} 2>/dev/null| ${RISCV32} 2>/dev/null
+elif [[ $# -eq 3 && $2 = "-o" ]]; then
+    ${EEYORE} <$1 2>/dev/null | ${TIGGER} 2>/dev/null| ${RISCV32} 1>$3 2>/dev/null
+else
+    echo "Usage: $0 [<filename> [-o <filename>]]"
+    exit
+fi
+
+echo "RISCV32 assembly generation finished!">&2
