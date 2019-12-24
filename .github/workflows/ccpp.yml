@@ -9,6 +9,10 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1
+    - name: flex
+      run: apt-get install flex
+    - name: bison
+      run: apt-get install bison
     - name: cmake configure
       run: cmake ./code
     - name: cd code
